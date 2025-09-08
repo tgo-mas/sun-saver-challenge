@@ -11,8 +11,12 @@ import {
   Leaf, 
   Sun,
   TrendingUp,
-  Star
+  Star,
+  Crown,
+  Award,
+  Flame
 } from "lucide-react";
+import GameLevel from "@/components/GameLevel";
 import heroImage from "@/assets/hero-solar-tree.jpg";
 
 const Dashboard = () => {
@@ -57,179 +61,217 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-success/10 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
         
-        {/* Header com perfil */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-success bg-clip-text text-transparent">
-              EcoEnergy
-            </h1>
-            <p className="text-muted-foreground">Economize energia, salve o planeta!</p>
+        {/* Header gamificado */}
+        <div className="text-center space-y-2">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-success to-warning bg-clip-text text-transparent">
+            ⚡ EcoEnergy Arena ⚡
+          </h1>
+          <p className="text-lg text-muted-foreground">Sua jornada épica pela energia sustentável!</p>
+        </div>
+
+        {/* Layout principal - Nível em destaque */}
+        <div className="grid lg:grid-cols-3 gap-6">
+          
+          {/* Coluna principal - Nível */}
+          <div className="lg:col-span-1">
+            <GameLevel 
+              currentLevel={userLevel}
+              currentXP={userXP}
+              nextLevelXP={nextLevelXP}
+            />
           </div>
-          <div className="flex items-center gap-4">
-            <Badge variant="secondary" className="px-3 py-1">
-              <Star className="w-4 h-4 mr-1" />
-              Nível {userLevel}
-            </Badge>
-            <div className="w-12 h-12 bg-gradient-to-br from-primary to-success rounded-full flex items-center justify-center text-white font-bold">
-              EC
-            </div>
+
+          {/* Stats principais em destaque */}
+          <div className="lg:col-span-2 grid md:grid-cols-2 gap-4">
+            <Card className="bg-gradient-to-br from-success/20 to-primary/10 border-success/30 hover:scale-[1.02] transition-transform">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium flex items-center gap-2">
+                  <Flame className="w-5 h-5 text-warning animate-pulse" />
+                  Sequência de Fogo
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-warning mb-2">
+                  {currentStreak} dias
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="flex">
+                    {[...Array(Math.min(currentStreak, 7))].map((_, i) => (
+                      <Flame key={i} className="w-4 h-4 text-warning" />
+                    ))}
+                  </div>
+                  <span className="text-xs text-muted-foreground">
+                    Recorde: 18 dias
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-secondary/20 to-warning/10 border-secondary/30 hover:scale-[1.02] transition-transform">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium flex items-center gap-2">
+                  <Crown className="w-5 h-5 text-secondary animate-bounce" />
+                  Tesouro Acumulado
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-secondary">
+                  R$ {totalSaved.toFixed(2)}
+                </div>
+                <p className="text-xs text-muted-foreground flex items-center gap-1">
+                  <TrendingUp className="w-3 h-3" />
+                  +R$ 45,20 esta semana
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
 
-        {/* Stats principais */}
-        <div className="grid md:grid-cols-3 gap-6">
-          <Card className="bg-gradient-to-br from-success/10 to-success/5 border-success/20">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium flex items-center gap-2">
-                <TreePine className="w-4 h-4 text-success" />
-                Progresso do Nível
+        {/* Missões e conquistas em destaque */}
+        <div className="grid lg:grid-cols-2 gap-6">
+          
+          {/* Missões ativas estilo RPG */}
+          <Card className="bg-gradient-to-br from-accent/10 to-primary/10 border-accent/20">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Target className="w-6 h-6 text-accent animate-pulse" />
+                Missões Ativas
+                <Badge variant="outline" className="ml-auto">
+                  {challenges.length} ativas
+                </Badge>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-success mb-2">
-                {userXP} / {nextLevelXP} XP
-              </div>
-              <Progress 
-                value={(userXP / nextLevelXP) * 100} 
-                className="h-2 bg-success/20"
-              />
-              <p className="text-xs text-muted-foreground mt-2">
-                {nextLevelXP - userXP} XP para próximo nível
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-secondary/10 to-warning/5 border-secondary/20">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium flex items-center gap-2">
-                <Sun className="w-4 h-4 text-secondary" />
-                Economia Total
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-secondary">
-                R$ {totalSaved.toFixed(2)}
-              </div>
-              <p className="text-xs text-muted-foreground">
-                <TrendingUp className="w-3 h-3 inline mr-1" />
-                +R$ 45,20 esta semana
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-br from-accent/10 to-primary/5 border-accent/20">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium flex items-center gap-2">
-                <Zap className="w-4 h-4 text-accent" />
-                Sequência Atual
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-accent">
-                {currentStreak} dias
-              </div>
-              <p className="text-xs text-muted-foreground">
-                Seu melhor: 18 dias
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Desafios ativos */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Target className="w-5 h-5 text-primary" />
-              Desafios Ativos
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {challenges.map((challenge) => (
-                <div key={challenge.id} className="flex items-center justify-between p-4 rounded-lg bg-muted/50 border">
-                  <div className="flex-1">
-                    <h4 className="font-medium mb-1">{challenge.title}</h4>
-                    <div className="flex items-center gap-2 mb-2">
-                      <Progress value={challenge.progress} className="h-2 flex-1" />
-                      <span className="text-sm text-muted-foreground">{challenge.progress}%</span>
+              <div className="space-y-4">
+                {challenges.map((challenge) => (
+                  <div key={challenge.id} className="flex items-center gap-3 p-3 rounded-lg bg-background/50 border border-muted/40 hover:bg-muted/30 transition-colors">
+                    <div className="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
+                    <div className="flex-1">
+                      <h4 className="font-medium text-sm mb-1">{challenge.title}</h4>
+                      <div className="flex items-center gap-2 mb-1">
+                        <Progress value={challenge.progress} className="h-1.5 flex-1" />
+                        <span className="text-xs text-muted-foreground w-10">{challenge.progress}%</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <Badge variant="outline" className="text-xs">
+                          +{challenge.reward} XP
+                        </Badge>
+                        <span className="text-xs text-warning font-medium">
+                          {challenge.progress >= 100 ? "✅ Completa!" : "🎯 Em progresso"}
+                        </span>
+                      </div>
                     </div>
-                    <Badge variant="outline" className="text-xs">
-                      +{challenge.reward} XP
-                    </Badge>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Conquistas em destaque */}
+          <Card className="bg-gradient-to-br from-warning/10 to-secondary/10 border-warning/20">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Trophy className="w-6 h-6 text-warning animate-bounce" />
+                Hall da Fama
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {/* Conquistas desbloqueadas */}
+                <div>
+                  <h4 className="text-sm font-medium text-muted-foreground mb-2">Conquistas Desbloqueadas</h4>
+                  <div className="flex gap-2 flex-wrap">
+                    {achievements.filter(a => a.unlocked).map((achievement, index) => (
+                      <div 
+                        key={index}
+                        className="flex items-center gap-2 px-3 py-2 rounded-lg bg-success/20 border border-success/30 text-success hover:scale-105 transition-transform"
+                      >
+                        <achievement.icon className="w-4 h-4" />
+                        <span className="text-xs font-medium">{achievement.name}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
 
-        {/* Conquistas */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Trophy className="w-5 h-5 text-warning" />
-              Conquistas Recentes
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex gap-4 flex-wrap">
-              {achievements.map((achievement, index) => (
-                <div 
-                  key={index}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg border ${
-                    achievement.unlocked 
-                      ? 'bg-success/10 border-success/20 text-success' 
-                      : 'bg-muted/50 border-muted text-muted-foreground'
-                  }`}
-                >
-                  <achievement.icon className="w-4 h-4" />
-                  <span className="text-sm font-medium">{achievement.name}</span>
+                {/* Próximas conquistas */}
+                <div>
+                  <h4 className="text-sm font-medium text-muted-foreground mb-2">Próximas Conquistas</h4>
+                  <div className="flex gap-2 flex-wrap">
+                    {achievements.filter(a => !a.unlocked).map((achievement, index) => (
+                      <div 
+                        key={index}
+                        className="flex items-center gap-2 px-3 py-2 rounded-lg bg-muted/30 border border-muted text-muted-foreground opacity-60"
+                      >
+                        <achievement.icon className="w-4 h-4" />
+                        <span className="text-xs font-medium">{achievement.name}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
-        {/* Árvore de progresso visual */}
-        <Card>
+        {/* Árvore de progresso minimalista */}
+        <Card className="bg-gradient-to-br from-primary/10 to-success/10 border-primary/20">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <TreePine className="w-5 h-5 text-success" />
-              Sua Árvore de Progresso
+              <TreePine className="w-6 h-6 text-success animate-float" />
+              Progressão de Poder
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex items-end justify-center space-x-2 h-32">
+            <div className="flex items-end justify-center space-x-1 h-24">
               {[1,2,3,4,5,6,7,8,9,10].map((level) => (
                 <div 
                   key={level}
-                  className={`w-8 transition-all duration-500 rounded-t-lg ${
+                  className={`w-6 transition-all duration-1000 rounded-t-lg flex items-end justify-center ${
                     level <= userLevel 
-                      ? 'bg-gradient-to-t from-success to-primary' 
-                      : 'bg-muted/30'
+                      ? level === userLevel
+                        ? 'bg-gradient-to-t from-warning to-secondary animate-pulse-glow' 
+                        : 'bg-gradient-to-t from-success to-primary'
+                      : 'bg-muted/40 hover:bg-muted/60'
                   }`}
-                  style={{ height: `${Math.min(level * 12, 100)}px` }}
+                  style={{ height: `${Math.min(level * 8 + 16, 80)}px` }}
                 >
-                  <div className="text-xs text-center text-white font-medium pt-1">
-                    {level}
-                  </div>
+                  {level <= userLevel && (
+                    <Star className="w-3 h-3 text-white mb-1" />
+                  )}
                 </div>
               ))}
             </div>
-            <div className="text-center mt-4">
-              <p className="text-sm text-muted-foreground">
-                Nível atual: <span className="font-bold text-success">{userLevel}</span>
+            <div className="text-center mt-4 space-y-1">
+              <p className="text-sm">
+                <span className="font-bold text-success">Nível {userLevel}</span> 
+                <span className="text-muted-foreground"> de 10</span>
               </p>
+              <div className="flex justify-center gap-2">
+                <Badge variant="outline">
+                  <Award className="w-3 h-3 mr-1" />
+                  {achievements.filter(a => a.unlocked).length}/{achievements.length} conquistas
+                </Badge>
+              </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* CTA para mais desafios */}
-        <div className="text-center">
-          <Button size="lg" variant="energy" className="animate-pulse-glow">
-            <Target className="w-4 h-4 mr-2" />
-            Ver Todos os Desafios
-          </Button>
+        {/* CTA para explorar */}
+        <div className="text-center space-y-4">
+          <div className="grid md:grid-cols-3 gap-4 max-w-2xl mx-auto">
+            <Button variant="energy" className="animate-pulse-glow">
+              <Target className="w-4 h-4 mr-2" />
+              Novas Missões
+            </Button>
+            <Button variant="solar" className="animate-float">
+              <Trophy className="w-4 h-4 mr-2" />
+              Ranking Global
+            </Button>
+            <Button variant="eco" className="animate-bounce-in">
+              <Star className="w-4 h-4 mr-2" />
+              Loja de Itens
+            </Button>
+          </div>
         </div>
 
       </div>
