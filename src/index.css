@@ -2,41 +2,68 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Solar Energy Gamification Design System
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base colors */
+    --background: 120 30% 97%;
+    --foreground: 120 15% 15%;
 
+    /* Card colors */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 120 15% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 120 15% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Green energy theme */
+    --primary: 140 60% 45%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Solar yellow */
+    --secondary: 48 95% 65%;
+    --secondary-foreground: 120 15% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted colors */
+    --muted: 120 20% 90%;
+    --muted-foreground: 120 10% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Energy blue */
+    --accent: 200 80% 55%;
+    --accent-foreground: 0 0% 98%;
+
+    /* Success - Nature green */
+    --success: 140 70% 50%;
+    --success-foreground: 0 0% 98%;
+
+    /* Warning - Solar orange */
+    --warning: 30 95% 55%;
+    --warning-foreground: 0 0% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 120 20% 85%;
+    --input: 120 20% 85%;
+    --ring: 140 60% 45%;
 
     --radius: 0.5rem;
+
+    /* Gradients */
+    --gradient-solar: linear-gradient(135deg, hsl(48 95% 65%) 0%, hsl(30 95% 55%) 100%);
+    --gradient-nature: linear-gradient(135deg, hsl(140 60% 45%) 0%, hsl(120 70% 40%) 100%);
+    --gradient-energy: linear-gradient(135deg, hsl(200 80% 55%) 0%, hsl(140 60% 45%) 100%);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Shadows */
+    --shadow-glow: 0 0 20px hsl(var(--primary) / 0.3);
+    --shadow-solar: 0 4px 20px hsl(48 95% 65% / 0.4);
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +128,35 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+  
+  /* Custom animations */
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  .animate-bounce-in {
+    animation: bounce-in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px hsl(var(--success) / 0.3); }
+    50% { box-shadow: 0 0 30px hsl(var(--success) / 0.6); }
+  }
+  
+  @keyframes bounce-in {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.05); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); opacity: 1; }
   }
 }
