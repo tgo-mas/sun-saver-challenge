@@ -73,7 +73,7 @@ const Dashboard = () => {
         <div className="grid lg:grid-cols-3 gap-6">
           
           {/* Coluna principal - Nível */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-3">
             <GameLevel 
               currentLevel={userLevel}
               currentXP={userXP}
@@ -82,7 +82,7 @@ const Dashboard = () => {
           </div>
 
           {/* Stats principais em destaque */}
-          <div className="lg:col-span-2 grid md:grid-cols-2 gap-4">
+          <div className="lg:col-span-1 grid md:grid-cols-2 gap-4">
             <Card className="bg-gradient-to-br from-success/20 to-primary/10 border-success/30 hover:scale-[1.02] transition-transform">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium flex items-center gap-2">
@@ -125,50 +125,9 @@ const Dashboard = () => {
               </CardContent>
             </Card>
           </div>
-        </div>
-
-        {/* Missões e conquistas em destaque */}
-        <div className="grid lg:grid-cols-2 gap-6">
-          
-          {/* Missões ativas estilo RPG */}
-          <Card className="bg-gradient-to-br from-accent/10 to-primary/10 border-accent/20">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Target className="w-6 h-6 text-accent animate-pulse" />
-                Missões Ativas
-                <Badge variant="outline" className="ml-auto">
-                  {challenges.length} ativas
-                </Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {challenges.map((challenge) => (
-                  <div key={challenge.id} className="flex items-center gap-3 p-3 rounded-lg bg-background/50 border border-muted/40 hover:bg-muted/30 transition-colors">
-                    <div className="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
-                    <div className="flex-1">
-                      <h4 className="font-medium text-sm mb-1">{challenge.title}</h4>
-                      <div className="flex items-center gap-2 mb-1">
-                        <Progress value={challenge.progress} className="h-1.5 flex-1" />
-                        <span className="text-xs text-muted-foreground w-10">{challenge.progress}%</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <Badge variant="outline" className="text-xs">
-                          +{challenge.reward} XP
-                        </Badge>
-                        <span className="text-xs text-warning font-medium">
-                          {challenge.progress >= 100 ? "✅ Completa!" : "🎯 Em progresso"}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
 
           {/* Conquistas em destaque */}
-          <Card className="bg-gradient-to-br from-warning/10 to-secondary/10 border-warning/20">
+          <Card className="bg-gradient-to-br from-warning/10 to-secondary/10 border-warning/20 lg:col-span-2">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Trophy className="w-6 h-6 text-warning animate-bounce" />
@@ -211,50 +170,92 @@ const Dashboard = () => {
               </div>
             </CardContent>
           </Card>
+          
         </div>
 
-        {/* Árvore de progresso minimalista */}
-        <Card className="bg-gradient-to-br from-primary/10 to-success/10 border-primary/20">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <TreePine className="w-6 h-6 text-success animate-float" />
-              Progressão de Poder
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-end justify-center space-x-1 h-24">
-              {[1,2,3,4,5,6,7,8,9,10].map((level) => (
-                <div 
-                  key={level}
-                  className={`w-6 transition-all duration-1000 rounded-t-lg flex items-end justify-center ${
-                    level <= userLevel 
-                      ? level === userLevel
-                        ? 'bg-gradient-to-t from-warning to-secondary animate-pulse-glow' 
-                        : 'bg-gradient-to-t from-success to-primary'
-                      : 'bg-muted/40 hover:bg-muted/60'
-                  }`}
-                  style={{ height: `${Math.min(level * 8 + 16, 80)}px` }}
-                >
-                  {level <= userLevel && (
-                    <Star className="w-3 h-3 text-white mb-1" />
-                  )}
-                </div>
-              ))}
-            </div>
-            <div className="text-center mt-4 space-y-1">
-              <p className="text-sm">
-                <span className="font-bold text-success">Nível {userLevel}</span> 
-                <span className="text-muted-foreground"> de 10</span>
-              </p>
-              <div className="flex justify-center gap-2">
-                <Badge variant="outline">
-                  <Award className="w-3 h-3 mr-1" />
-                  {achievements.filter(a => a.unlocked).length}/{achievements.length} conquistas
+        {/* Missões e conquistas em destaque */}
+        <div className="grid lg:grid-cols-2 gap-6">
+          
+          {/* Missões ativas estilo RPG */}
+          <Card className="bg-gradient-to-br from-accent/10 to-primary/10 border-accent/20">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Target className="w-6 h-6 text-accent animate-pulse" />
+                Missões Ativas
+                <Badge variant="outline" className="ml-auto">
+                  {challenges.length} ativas
                 </Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {challenges.map((challenge) => (
+                  <div key={challenge.id} className="flex items-center gap-3 p-3 rounded-lg bg-background/50 border border-muted/40 hover:bg-muted/30 transition-colors">
+                    <div className="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
+                    <div className="flex-1">
+                      <h4 className="font-medium text-sm mb-1">{challenge.title}</h4>
+                      <div className="flex items-center gap-2 mb-1">
+                        <Progress value={challenge.progress} className="h-1.5 flex-1" />
+                        <span className="text-xs text-muted-foreground w-10">{challenge.progress}%</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <Badge variant="outline" className="text-xs">
+                          +{challenge.reward} XP
+                        </Badge>
+                        <span className="text-xs text-warning font-medium">
+                          {challenge.progress >= 100 ? "✅ Completa!" : "🎯 Em progresso"}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+
+          {/* Árvore de progresso minimalista */}
+          <Card className="lg:col-span-1 bg-gradient-to-br from-primary/10 to-success/10 border-primary/20">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <TreePine className="w-6 h-6 text-success animate-float" />
+                Progressão de Poder
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-end justify-center space-x-1 h-24">
+                {[1,2,3,4,5,6,7,8,9,10].map((level) => (
+                  <div 
+                    key={level}
+                    className={`w-6 transition-all duration-1000 rounded-t-lg flex items-end justify-center ${
+                      level <= userLevel 
+                        ? level === userLevel
+                          ? 'bg-gradient-to-t from-warning to-secondary animate-pulse-glow' 
+                          : 'bg-gradient-to-t from-success to-primary'
+                        : 'bg-muted/40 hover:bg-muted/60'
+                    }`}
+                    style={{ height: `${Math.min(level * 8 + 16, 80)}px` }}
+                  >
+                    {level <= userLevel && (
+                      <Star className="w-3 h-3 text-white mb-1" />
+                    )}
+                  </div>
+                ))}
+              </div>
+              <div className="text-center mt-4 space-y-1">
+                <p className="text-sm">
+                  <span className="font-bold text-success">Nível {userLevel}</span> 
+                  <span className="text-muted-foreground"> de 10</span>
+                </p>
+                <div className="flex justify-center gap-2">
+                  <Badge variant="outline">
+                    <Award className="w-3 h-3 mr-1" />
+                    {achievements.filter(a => a.unlocked).length}/{achievements.length} conquistas
+                  </Badge>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
         {/* CTA para explorar */}
         <div className="text-center space-y-4">
