@@ -260,11 +260,11 @@ const Dashboard = () => {
         {/* CTA para explorar */}
         <div className="text-center space-y-4">
           <div className="grid md:grid-cols-3 gap-4 max-w-2xl mx-auto">
-            <Button variant="energy" className="animate-pulse-glow">
+            <Button variant="energy" className="animate-bounce-in">
               <Target className="w-4 h-4 mr-2" />
               Novas Missões
             </Button>
-            <Button variant="solar" className="animate-float">
+            <Button variant="solar" className="animate-bounce-in">
               <Trophy className="w-4 h-4 mr-2" />
               Ranking Global
             </Button>
