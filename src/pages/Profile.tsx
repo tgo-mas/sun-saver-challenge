@@ -20,7 +20,9 @@ import {
   Calendar,
   Mail,
   Phone,
-  MapPin
+  MapPin,
+  Coins,
+  CoinsIcon
 } from "lucide-react";
 
 const Profile = () => {
@@ -39,7 +41,7 @@ const Profile = () => {
     totalSaved: 1247.50,
     co2Avoided: 245,
     daysActive: 89,
-    challengesCompleted: 23
+    coins: 450
   };
 
   const achievements = [
@@ -196,10 +198,10 @@ const Profile = () => {
               <Card className="bg-gradient-to-br from-warning/10 to-secondary/5 border-warning/20">
                 <CardContent className="p-4 text-center">
                   <div className="w-12 h-12 bg-warning/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <Target className="w-6 h-6 text-warning" />
+                    <Coins className="w-6 h-6 text-warning" />
                   </div>
-                  <div className="text-2xl font-bold text-warning">{userStats.challengesCompleted}</div>
-                  <div className="text-xs text-muted-foreground">Desafios Concluídos</div>
+                  <div className="text-2xl font-bold text-warning">{userStats.coins}</div>
+                  <div className="text-xs text-muted-foreground">Moedas</div>
                 </CardContent>
               </Card>
 

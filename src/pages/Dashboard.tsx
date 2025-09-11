@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import GameLevel from "@/components/GameLevel";
 import heroImage from "@/assets/hero-solar-tree.jpg";
+import StoreModal from "@/components/StoreModal";
 
 const Dashboard = () => {
   const [userLevel] = useState(7);
@@ -25,6 +26,9 @@ const Dashboard = () => {
   const [nextLevelXP] = useState(3000);
   const [totalSaved] = useState(1247.50);
   const [currentStreak] = useState(12);
+  const [coins] = useState(450);
+
+  const [showStoreModal, setShowStoreModal] = useState(false);
 
   const challenges = [
     { 
@@ -91,12 +95,12 @@ const Dashboard = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-warning mb-2">
+                <div className="text-3xl text-center font-bold text-warning mb-2">
                   {currentStreak} dias
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="flex">
-                    {[...Array(Math.min(currentStreak, 7))].map((_, i) => (
+                <div className="flex items-center flex-col gap-2">
+                  <div className="grid lg:lg:grid-cols-10">
+                    {[...Array(Math.min(currentStreak, 12))].map((_, i) => (
                       <Flame key={i} className="w-4 h-4 text-warning" />
                     ))}
                   </div>
@@ -199,9 +203,17 @@ const Dashboard = () => {
                         <span className="text-xs text-muted-foreground w-10">{challenge.progress}%</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <Badge variant="outline" className="text-xs">
-                          +{challenge.reward} XP
-                        </Badge>
+                        <div>
+                          <Badge variant="outline" className="text-xs">
+                            +{challenge.reward} XP
+                          </Badge>
+                          <Badge variant="outline" className="text-xs">
+                            +{challenge.reward/10}
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+                            </svg>
+                          </Badge>
+                        </div>
                         <span className="text-xs text-warning font-medium">
                           {challenge.progress >= 100 ? "✅ Completa!" : "🎯 Em progresso"}
                         </span>
@@ -268,14 +280,23 @@ const Dashboard = () => {
               <Trophy className="w-4 h-4 mr-2" />
               Ranking Global
             </Button>
-            <Button variant="eco" className="animate-bounce-in">
-              <Star className="w-4 h-4 mr-2" />
-              Loja de Itens
+            <Button variant="eco" className="animate-bounce-in"
+              onClick={() => setShowStoreModal(true)}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+              </svg>
+              Loja Solar
             </Button>
           </div>
         </div>
 
       </div>
+
+      <StoreModal 
+        isOpen={showStoreModal}
+        onClose={() => setShowStoreModal(false)}
+        currentCoins={coins}
+      />
     </div>
   );
 };

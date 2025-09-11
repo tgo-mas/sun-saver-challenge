@@ -10,7 +10,7 @@ import {
 
 const Navigation = () => {
   const navItems = [
-    { to: "/", icon: Home, label: "Dashboard" },
+    { to: "/", icon: Home, label: "Jornada" },
     { to: "/challenges", icon: Target, label: "Desafios" },
     { to: "/statistics", icon: BarChart3, label: "Estatísticas" },
     { to: "/profile", icon: User, label: "Perfil" },
