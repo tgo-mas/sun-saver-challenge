@@ -110,12 +110,12 @@ const Dashboard = () => {
             <Card className="bg-gradient-to-br from-secondary/20 to-warning/10 border-secondary/30 hover:scale-[1.02] transition-transform">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium flex items-center gap-2">
-                  <Crown className="w-5 h-5 text-secondary animate-bounce" />
+                  <Crown className="w-5 h-5 text-primary animate-bounce" />
                   Tesouro Acumulado
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-secondary">
+                <div className="text-3xl font-bold text-primary">
                   R$ {totalSaved.toFixed(2)}
                 </div>
                 <p className="text-xs text-muted-foreground flex items-center gap-1">
