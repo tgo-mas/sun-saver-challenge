@@ -68,7 +68,7 @@ const Statistics = () => {
         {/* Header */}
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-success bg-clip-text text-transparent">
-            Estatísticas EcoEnergy
+            Estatísticas ArenaSolar
           </h1>
           <p className="text-muted-foreground">
             Acompanhe seu progresso e impacto ambiental

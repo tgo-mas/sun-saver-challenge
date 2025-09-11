@@ -64,7 +64,7 @@ const Dashboard = () => {
         {/* Header gamificado */}
         <div className="text-center space-y-2">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-success to-warning bg-clip-text text-transparent">
-            ⚡ EcoEnergy Arena ⚡
+            ⚡ ArenaSolar ⚡
           </h1>
           <p className="text-lg text-muted-foreground">Sua jornada épica pela energia sustentável!</p>
         </div>

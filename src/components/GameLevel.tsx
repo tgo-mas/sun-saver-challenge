@@ -59,7 +59,7 @@ const GameLevel = ({ currentLevel, currentXP, nextLevelXP }: GameLevelProps) => 
   return (
     <>
       <Card 
-        className="relative overflow-hidden bg-gradient-to-br from-card/80 to-card/40 border-2 border-primary/20 cursor-pointer hover:border-primary/40 transition-all duration-300 hover:scale-[1.02] animate-pulse-glow"
+        className="relative overflow-hidden bg-gradient-to-br from-card/80 to-card/40 border-2 border-primary/20 cursor-pointer hover:border-primary/40 transition-all duration-300 hover:scale-[1.02]"
         onClick={() => setShowLevelModal(true)}
       >
         {/* Background com imagem do nível atual */}
@@ -138,20 +138,6 @@ const GameLevel = ({ currentLevel, currentXP, nextLevelXP }: GameLevelProps) => 
               </div>
               <Star className="w-4 h-4 text-warning ml-auto" />
             </div>
-
-            {/* Botão de ação */}
-            <Button 
-              variant="energy" 
-              size="sm" 
-              className="w-full"
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowLevelModal(true);
-              }}
-            >
-              <Sparkles className="w-4 h-4 mr-2" />
-              Ver Árvore de Níveis
-            </Button>
           </div>
         </CardContent>
       </Card>

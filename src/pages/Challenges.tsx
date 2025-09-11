@@ -124,7 +124,7 @@ const Challenges = () => {
         {/* Header */}
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-success bg-clip-text text-transparent">
-            Desafios EcoEnergy
+            Desafios ArenaSolar
           </h1>
           <p className="text-muted-foreground">
             Complete desafios e ganhe XP para evoluir sua jornada sustentável

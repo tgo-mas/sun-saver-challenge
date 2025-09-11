@@ -25,7 +25,7 @@ const Navigation = () => {
           <div className="flex items-center gap-2">
             <TreePine className="w-8 h-8 text-success" />
             <span className="text-xl font-bold bg-gradient-to-r from-primary to-success bg-clip-text text-transparent">
-              EcoEnergy
+              ArenaSolar
             </span>
           </div>
           
